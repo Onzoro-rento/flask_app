@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Travel Plan</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container">
+    <h1 class="mt-5">新しい旅行の予定を立てよう！</h1>
+    <form action="/create" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="plan_name" class="form-label">プラン名</label>
+            <input type="text" class="form-control" id="plan_name" name="plan_name" required>
+        </div>
+        <div class="mb-3">
+            <label for="destination" class="form-label">目的地</label>
+            <input type="text" class="form-control" id="destination" name="destination" required>
+        </div>
+        <div class="mb-3">
+            <label for="start_date" class="form-label">出発日</label>
+            <input type="date" class="form-control" id="start_date" name="start_date" required>
+        </div>
+        <div class="mb-3">
+            <label for="end_date" class="form-label">終了日</label>
+            <input type="date" class="form-control" id="end_date" name="end_date" required>
+        </div>
+        <div class="mb-3">
+            <label for="notes" class="form-label">Notes</label>
+            <textarea class="form-control" id="notes" name="notes" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+            <label for="estimated_budget" class="form-label">予算（円）</label>
+            <input type="number" class="form-control" id="estimated_budget" name="estimated_budget" step="0.01">
+        </div>
+        <div class="mb-3">
+            <label for="actual_cost" class="form-label">実際の費用（円）</label>
+            <input type="number" class="form-control" id="actual_cost" name="actual_cost" step="0.01">
+        </div>
+        
+        <div class="mb-3">
+            <label for="destinations" class="form-label">行き先と順番</label>
+            <div id="destinations-container">
+               
+                <div class="destination-item">
+                    <input type="text" class="form-control mb-2" name="destinations[]" placeholder="行き先名">
+                </div>
+            </div>
+            <button type="button" class="btn btn-secondary mt-2" id="add-destination">行き先を追加</button>
+        </div>
+        <script>
+            document.getElementById('add-destination').addEventListener('click', function() {
+                const container = document.getElementById('destinations-container');
+                const newInput = document.createElement('div');
+                newInput.classList.add('destination-item');
+                newInput.innerHTML = `<input type="text" class="form-control mb-2" name="destinations[]" placeholder="行き先名">`;
+                container.appendChild(newInput);
+            });
+            </script>
+            
+        <div class="mb-3">
+            <label for="hotel_url" class="form-label">Hotel URL</label>
+            <input type="url" class="form-control" id="hotel_url" name="hotel_url">
+        </div>
+        <div class="mb-3">
+            <label for="confirmation_pdf" class="form-label">予約確認 PDF</label>
+            <input type="file" class="form-control" id="confirmation_pdf" name="confirmation_pdf" accept=".pdf">
+        </div>
+        <button type="submit" class="btn btn-primary">Save Plan</button>
+    </form>
+    
+</body>
+</html>

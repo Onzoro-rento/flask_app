@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ plan.plan_name }} - 詳細</title>
+</head>
+<body>
+    <h1>{{ plan.plan_name }}</h1>
+    <p><strong>行き先:</strong> {{ plan.destination }}</p>
+    <p><strong>開始日:</strong> {{ plan.start_date }}</p>
+    <p><strong>終了日:</strong> {{ plan.end_date }}</p>
+    <p><strong>メモ:</strong> {{ plan.notes }}</p>
+    <p><strong>予算:</strong> {{ plan.estimated_budget or '未設定' }} 円</p>
+<p><strong>実際の費用:</strong> {{ plan.actual_cost or '未設定' }} 円</p>
+
+<h3>行き先リスト</h3>
+{% if plan.destinations %}
+    <ol>
+        {% for destination in plan.destinations %}
+            <li>{{ destination.name }}</li>
+        {% endfor %}
+    </ol>
+{% else %}
+    <p>行き先は設定されていません。</p>
+{% endif %}
+
+    <p><strong>ホテルURL:</strong> <a href="{{ plan.hotel_url }}" target="_blank">{{ plan.hotel_url }}</a></p>
+
+    <h3>予約確認PDF</h3>
+    {% if plan.confirmation_pdf %}
+        
+        <embed src="{{ url_for('static', filename=plan.confirmation_pdf) }}" width="600" height="400" type="application/pdf">
+        <p><a href="{{ url_for('static', filename=plan.confirmation_pdf) }}" target="_blank">PDFを開く</a></p>
+    {% else %}
+        <p>PDFはアップロードされていません。</p>
+    {% endif %}
+    
+    <p><a href="{{ url_for('index') }}">一覧に戻る</a></p>
+</body>
+</html>
