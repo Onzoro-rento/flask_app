@@ -38,6 +38,9 @@
 
 git clone https://github.com/Onzoro-rento/flask_app.git
 
+ディレクトリに移動
+cd flask_app
+
 必要なパッケージをインストールします。
 
 pip install -r requirements.txt
