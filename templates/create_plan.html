@@ -49,23 +49,60 @@
             <button type="button" class="btn btn-secondary mt-2" id="add-destination">行き先を追加</button>
         </div>
         <script>
-            document.getElementById('add-destination').addEventListener('click', function() {
+            document.getElementById('add-destination').addEventListener('click', function () {
                 const container = document.getElementById('destinations-container');
-                const newInput = document.createElement('div');
-                newInput.classList.add('destination-item');
-                newInput.innerHTML = `<input type="text" class="form-control mb-2" name="destinations[]" placeholder="行き先名">`;
-                container.appendChild(newInput);
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.name = 'destinations[]';
+                input.className = 'form-control mb-2';
+                input.placeholder = '行き先名';
+                container.appendChild(input);
             });
-            </script>
+        </script>
+        
             
         <div class="mb-3">
-            <label for="hotel_url" class="form-label">Hotel URL</label>
-            <input type="url" class="form-control" id="hotel_url" name="hotel_url">
+            <label for="hotel_urls" class="form-label">ホテル URL</label>
+            <div id="hotel_urls-container">
+               
+                <div class="hotel_url-item">
+                    <input type="text" class="form-control mb-2" name="hotel_urls[]" placeholder="ホテルのURL">
+                </div>
+            </div>
+            <button type="button" class="btn btn-secondary mt-2" id="add-hotel_url">ホテルのURLを追加</button>
         </div>
+        <script>
+            document.getElementById('add-hotel_url').addEventListener('click', function () {
+                const container = document.getElementById('hotel_urls-container');
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.name = 'hotel_urls[]';
+                input.className = 'form-control mb-2';
+                input.placeholder = 'ホテルURL';
+                container.appendChild(input);
+            });
+        </script>
         <div class="mb-3">
-            <label for="confirmation_pdf" class="form-label">予約確認 PDF</label>
-            <input type="file" class="form-control" id="confirmation_pdf" name="confirmation_pdf" accept=".pdf">
+            <label for="pdf_files" class="form-label">予約確認 PDF</label>
+            <div id="pdf_files-container">
+                <div class="pdf-file-item">
+                    <input type="file" class="form-control mb-2" name="pdf_files[]" accept=".pdf">
+                </div>
+            </div>
+            <button type="button" class="btn btn-secondary mt-2" id="add-pdf-file">PDF入力欄を追加</button>
         </div>
+        <script>
+            document.getElementById('add-pdf-file').addEventListener('click', function () {
+                const container = document.getElementById('pdf_files-container');
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.name = 'pdf_files[]';  
+                input.className = 'form-control mb-2';
+                input.accept = '.pdf';
+                container.appendChild(input);
+            });
+        </script>
+        
         <button type="submit" class="btn btn-primary">Save Plan</button>
     </form>
     
