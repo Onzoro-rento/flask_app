@@ -12,30 +12,44 @@
     <p><strong>終了日:</strong> {{ plan.end_date }}</p>
     <p><strong>メモ:</strong> {{ plan.notes }}</p>
     <p><strong>予算:</strong> {{ plan.estimated_budget or '未設定' }} 円</p>
-<p><strong>実際の費用:</strong> {{ plan.actual_cost or '未設定' }} 円</p>
+    <p><strong>実際の費用:</strong> {{ plan.actual_cost or '未設定' }} 円</p>
 
-<h3>行き先リスト</h3>
-{% if plan.destinations %}
-    <ol>
-        {% for destination in plan.destinations %}
-            <li>{{ destination.name }}</li>
-        {% endfor %}
-    </ol>
-{% else %}
-    <p>行き先は設定されていません。</p>
-{% endif %}
+    <h3>行き先リスト</h3>
+    {% if plan.destinations %}
+        <ol>
+            {% for destination in plan.destinations %}
+                <li>{{ destination.name }}</li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <p>行き先は設定されていません。</p>
+    {% endif %}
 
-    <p><strong>ホテルURL:</strong> <a href="{{ plan.hotel_url }}" target="_blank">{{ plan.hotel_url }}</a></p>
+    <h3>ホテルURL</h3>
+    {% if plan.hotel_url %}
+        <ol>
+            {% for hotel in plan.hotel_url %}
+                <li><a href="{{ hotel.hotel_url }}" target="_blank">{{ hotel.hotel_url }}</a></li>
+            {% endfor %}
+        </ol>
+    {% else %}
+        <p>ホテルURLは設定されていません。</p>
+    {% endif %}
 
     <h3>予約確認PDF</h3>
-    {% if plan.confirmation_pdf %}
-        
-        <embed src="{{ url_for('static', filename=plan.confirmation_pdf) }}" width="600" height="400" type="application/pdf">
-        <p><a href="{{ url_for('static', filename=plan.confirmation_pdf) }}" target="_blank">PDFを開く</a></p>
+    {% if plan.pdf_files %}
+        <ul>
+            {% for pdf in plan.pdf_files %}
+            <li>
+                <a href="{{ url_for('static', filename=pdf.filename) }}" target="_blank">{{ pdf.filename }}</a>
+            </li>
+            {% endfor %}
+        </ul>
     {% else %}
         <p>PDFはアップロードされていません。</p>
     {% endif %}
-    
+
+
     <p><a href="{{ url_for('index') }}">一覧に戻る</a></p>
 </body>
 </html>
