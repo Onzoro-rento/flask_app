@@ -38,8 +38,11 @@
 
 
 実行方法
+1.Renderで簡単なwebアプリをデプロイしてみました。
+無料版を使っているので、アプリの稼働時間は長くなると思います。
+https://flask-app-2kjb.onrender.com
 
-このリポジトリをクローンします。
+2.このリポジトリをクローンします。
 
 git clone https://github.com/Onzoro-rento/flask_app.git
 
