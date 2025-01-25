@@ -58,8 +58,6 @@ Webブラウザで以下のURLにアクセスします。
 
 http://127.0.0.1:5000
 
-最近デプロイしました
-このアプリのURL：https://flask-app-2kjb.onrender.com
 
 今後の課題・改善点
 
