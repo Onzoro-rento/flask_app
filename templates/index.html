@@ -11,6 +11,18 @@
             top: 20px;
             right: 20px;
         }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 2px solid #000; 
+        }
+        th, td {
+            padding: 10px;
+            text-align: center; 
+        }
     </style>
 </head>
 <body class="container">
@@ -20,7 +32,7 @@
     <h1 class="mt-5">Travel Plans</h1>
     <a href="/create" class="btn btn-primary mt-3">新しい予定を立てる</a>
     <ul class="list-group mt-3">
-        <table>
+        <table border="2">
             <thead>
                 <tr>
                     <th>プラン名</th>
