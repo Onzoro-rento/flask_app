@@ -32,7 +32,7 @@
 
 バックエンド: Flask
 
-データベース: SQLAlchemy
+データベース: SQLite
 
 フロントエンド: HTML, CSS
 
