@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}ログイン{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-5">
+      <div class="card shadow">
+        <div class="card-body">
+          <h3 class="card-title text-center mb-4">ログイン</h3>
+          {% from "_formhelpers.html" import render_field %}
+          <form method="POST" action="{{ url_for('auth.login') }}" novalidate>
+            {{ form.hidden_tag() }}
+            {{ render_field(form.username, class="form-control") }}
+            {{ render_field(form.password, class="form-control") }}
+
+            
+
+            <div class="d-grid mt-3">
+              {{ form.submit(class="btn btn-primary") }}
+            </div>
+          </form>
+
+          <p class="mt-3 text-center">
+            アカウントをお持ちでない場合は <a href="{{ url_for('auth.register') }}">こちら</a> から登録してください。
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
