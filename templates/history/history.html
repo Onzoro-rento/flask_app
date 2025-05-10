@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}旅行履歴{% endblock %}
+
+{% block content %}
+<style>
+  .history-card {
+    background-color: #fdfdfd;
+    border-left: 5px solid #0d6efd;
+    transition: transform 0.2s ease;
+  }
+  .history-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+</style>
+
+<h2 class="mb-4">🧳 旅行履歴</h2>
+
+{% if history_plans %}
+  <div class="row">
+    {% for plan in history_plans %}
+      <div class="col-md-6 col-lg-4 mb-4">
+        <div class="card history-card h-100 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">{{ plan.plan_name }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ plan.start_date }} ~ {{ plan.end_date }}</h6>
+            <p class="card-text">📍 目的地: {{ plan.destination }}</p>
+            {% if plan.actual_cost %}
+              <p class="card-text">💰 実費: ¥{{ "{:,.0f}".format(plan.actual_cost) }}</p>
+            {% endif %}
+            {% if plan.notes %}
+              <p class="card-text text-muted">📝 メモ: {{ plan.notes[:50] }}{% if plan.notes|length > 50 %}...{% endif %}</p>
+            {% endif %}
+            <a href="{{ url_for('plans.view_plan', plan_id=plan.id) }}" class="btn btn-outline-primary btn-sm mt-2">詳細を見る</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <div class="alert alert-secondary">履歴はまだ登録されていません。</div>
+{% endif %}
+{% endblock %}

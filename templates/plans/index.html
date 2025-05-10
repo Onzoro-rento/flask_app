@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}旅行予定一覧{% endblock %}
+
+{% block content %}
+<style>
+  .card-hover:hover {
+    background-color: #e6f7ff;
+  }
+  .card-completed {
+    background-color: #f8f9fa;
+    opacity: 0.85;
+  }
+  .badge-complete {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 0.8rem;
+  }
+  .form-check-input {
+    transform: scale(1.4);
+    margin-right: 0.5rem;
+  }
+</style>
+
+
+<div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
+  <h2 class="mb-0">旅行予定</h2>
+  <a href="{{ url_for('plans.create_plan') }}" class="btn btn-success mt-2 mt-md-0">
+    ＋ 旅行予定を作成
+  </a>
+</div>
+
+{% if travel_plans %}
+  <div class="row">
+    {% for plan in travel_plans %}
+      <div class="col-12 mb-4">
+        <div class="card shadow-sm card-hover position-relative {% if plan.is_completed %}card-completed{% endif %}">
+          <div class="card-body">
+
+            {% if plan.is_completed %}
+              <span class="badge bg-success badge-complete">✔ 完了</span>
+            {% else %}
+            <form method="POST"
+            action="{{ url_for('plans.mark_complete', plan_id=plan.id) }}"
+            class="position-absolute top-0 end-0 p-2 bg-white rounded shadow-sm"
+            style="z-index: 2;"
+            onclick="event.stopPropagation();">
+        <div class="form-check d-flex align-items-center mb-0">
+          <input class="form-check-input"
+                 type="checkbox"
+                 name="is_completed"
+                 value="true"
+                 onclick="event.stopPropagation(); if(confirm('この旅行を完了として登録しますか？')) { this.form.submit(); } else { this.checked = false; }">
+          <label class="form-check-label small ms-1">完了</label>
+        </div>
+      </form>
+      
+      
+      
+            {% endif %}
+
+            <h5 class="card-title">{{ plan.plan_name }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{ plan.start_date }} ~ {{ plan.end_date }}</h6>
+            <p class="card-text">目的地: {{ plan.destination }}</p>
+            {% if plan.estimated_budget %}
+              <p class="card-text">予算: ¥{{ "{:,.0f}".format(plan.estimated_budget) }}</p>
+            {% endif %}
+          </div>
+          <a href="{{ url_for('plans.view_plan', plan_id=plan.id) }}" class="stretched-link"></a>
+        </div>
+
+        <div class="text-end mt-2">
+          <a href="{{ url_for('plans.update', plan_id=plan.id) }}" class="btn btn-warning btn-sm">編集</a>
+          <form action="{{ url_for('plans.delete_plan', plan_id=plan.id) }}" method="POST" class="d-inline" onsubmit="return confirm('本当に削除しますか？');">
+            <button type="submit" class="btn btn-danger btn-sm">削除</button>
+          </form>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p>現在予定は登録されていません。</p>
+{% endif %}
+{% endblock %}
